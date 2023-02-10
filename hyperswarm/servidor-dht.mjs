@@ -5,6 +5,10 @@ import b4a from 'b4a';
 /* server.mjs criará um par de chaves e, em seguida,
     iniciará um servidor que escutará o par de chaves gerado.
     A chave pública é registrada no console
+
+    NOTA: varios clientes podem se conectar a este servidor usando a chave publica
+    A mensagem enviada pelo servidor é recebido por todos clientes conectados, mas as mensagens
+    enviadas por um dos clientes só o Servidor receberá.
 */
 
 
