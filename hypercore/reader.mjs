@@ -20,7 +20,7 @@ swarm.on('connection', conn => core.replicate(conn));
 swarm.flush().then(() => foundPeers);
 
 let position = core.length;
-console.log('`Pulando ${core.length} blocos anteriores...')
+console.log(`Pulando ${core.length} blocos anteriores...`)
 
 for await (const block of core.createReadStream({start: core.length,live: true})) {
     console.log(`Bloco ${position++}: ${block}`);
