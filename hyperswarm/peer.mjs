@@ -23,7 +23,13 @@ swarm.on('connection', conn => {
     const name = b4a.toString(conn.remotePublicKey, 'hex');
     console.log('* Uma conexão apartir de', name, '*');
     conns.push(conn);
-    conn.once('close', ()=> conns.splice(conns.indexOf(conn), 1));
+    conn.once('close', ()=> { 
+        conns.splice(conns.indexOf(conn), 1)
+        for (const con of conns) {
+            con.write(`saiu: ${name}`);
+        };
+    
+    });
     conn.on('data', data => console.log(`${name}: ${data}`));
 });
 
@@ -34,8 +40,10 @@ process.stdin.on('data', d => {
     };
 });
 
+const isServer = () => process.argv[2] ? true : false;
+
 // juntar-se a um tópico comum
-const topico = process.argv[2] ? b4a.from(process.argv[2], 'hex') : crypto.randomBytes(32);
+const topico = isServer ? b4a.from(process.argv[2], 'hex') : crypto.randomBytes(32);
 const discovery = swarm.join(topico, { client: true, server: true});
 
 // A Promise liberada será resolvida quando o tópico for totalmente anúnciado ao DHT
