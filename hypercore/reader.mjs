@@ -15,7 +15,7 @@ swarm.on('connection', conn => core.replicate(conn));
 
 
 // swarm.flush() irá esperar até que *todos* os peers detectáveis ​​tenham sido conectados 
-// Pode demorar um pouco, então melhor nao esperar (await)
+// Pode demorar um pouco, então melhor não esperar, (não usar await).
 // Em vez disso, usar core.findingPeers() para marcar quando o processo de descoberta for concluído
 swarm.flush().then(() => foundPeers);
 
